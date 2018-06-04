@@ -17,4 +17,4 @@
     append_privs: yes
   with_items:
     - "{{ projects }}"
-  when: item.db_user is defined
+  when: item.db_user != ""
