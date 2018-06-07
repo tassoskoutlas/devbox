@@ -2,6 +2,26 @@
 # Configuration variables. #
 ############################
 
+# Machine
+vm_name: "devbox"
+vm_hostname: "dev.box"
+vm_ram: "2048"
+vm_ip: "10.10.10.10"
+vm_user: "ubuntu"
+vm_group: "www-data"
+
+# Folder mapping
+vm_network_type: "nfs"
+vm_folder_perm: "u=rwX:g=rwD"
+host_path: "~/projects"
+guest_path: "/home/ubuntu/projects"
+tmp_path: "/home/ubuntu/nfs"
+
+# Git configuration
+git_user: ""
+git_eemail: ""
+git_rsa_key: ""
+
 # Remote user name used in devbox
 remote_user: ubuntu
 
@@ -22,7 +42,7 @@ config_roles:
   - projects
 
 # Projects root
-projects_root: "/home/{{ remote_user }}/projects"
+projects_path: "{{ guest_path }}"
 
 # Projects
 # 
@@ -40,24 +60,16 @@ projects_root: "/home/{{ remote_user }}/projects"
 
 projects:
 
-  - domain: "d8.demo"
-    project: "{{ projects_root }}/D8/00-DEMO"
-    docroot: "tech/web"
+  - domain: ""
+    project: ""
+    docroot: ""
     db_user: ""
     db_pass: ""
-    db_name: "d8demo"
-    tech: "drupal"
-
-  # - domain: ""
-  #   project: ""
-  #   docroot: ""
-  #   db_user: ""
-  #   db_pass: ""
-  #   db_name: ""
-  #   tech: ""
+    db_name: ""
+    tech: ""
 
 ## TODO
-  
+
 # Additional packages
 #
 # Add additional packages in the variable below to be included in the server,

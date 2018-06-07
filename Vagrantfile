@@ -1,8 +1,26 @@
 # Devbox Vagrant file.
-#
+require 'yaml'
+
 # Look at default.config.yml for setting configuration parameters on this file.
 VAGRANTFILE_API_VERSION = "2"
 
+# Load configuration parameters from config file.
+config_yml = YAML.load_file("config.yml")
+
+# Project domains
+project_domains = []
+
+config_yml['projects'].each do |project|
+  project.each do |key, value|
+    if key == 'domain' and value != ""
+      project_domains.push(value)
+    end
+  end
+end
+
+puts project_domains
+
+# Install if required and load plugins.
 required_plugins = %w(vagrant-hostsupdater vagrant-bindfs)
 plugins_to_install = required_plugins.select { |plugin| not Vagrant.has_plugin? plugin }
 
@@ -15,33 +33,35 @@ if not plugins_to_install.empty?
   end
 end
 
+# Start configuring Vagrant
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Define VM parameters
-  config.vm.define "devbox" do |devbox|
+  config.vm.define config_yml['vm_name'] do |devbox|
     
     # Operating system
     devbox.vm.box = "ubuntu/xenial64"
 
     # Network
-    devbox.vm.hostname = "dev.box"
-    devbox.vm.network "private_network", ip: "10.10.10.10"
+    devbox.vm.network "private_network", ip: config_yml['vm_ip']
+    devbox.vm.hostname = config_yml['vm_hostname']
+    devbox.hostsupdater.aliases = project_domains
 
     # Folders
-    devbox.vm.synced_folder "~/projects", "/home/ubuntu/nfs", type: "nfs"
+    devbox.vm.synced_folder config_yml['host_path'], config_yml['tmp_path'], type: config_yml['vm_network_type']
 
-    devbox.bindfs.bind_folder "/home/ubuntu/nfs", "/home/ubuntu/projects",
-      perms: "u=rwX:g=rwD",
-      force_user: "ubuntu",
-      force_group: "www-data",
+    devbox.bindfs.bind_folder config_yml['tmp_path'], config_yml['guest_path'],
+      perms: config_yml['vm_folder_perm'],
+      force_user: config_yml['vm_user'],
+      force_group: config_yml['vm_group'],
       create_as_user: true
   end
 
   # Virtualbox parameters
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "devbox"
+    vb.name = config_yml['vm_name']
     vb.cpus = 2
-    vb.customize ["modifyvm", :id, "--memory", "2048"]
+    vb.customize ["modifyvm", :id, "--memory", config_yml['vm_ram']]
   end
 
   # Workaround for ubuntu/xenial not having /usr/bin/python
