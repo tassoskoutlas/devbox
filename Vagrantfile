@@ -3,7 +3,7 @@
 # Look at default.config.yml for setting configuration parameters on this file.
 VAGRANTFILE_API_VERSION = "2"
 
-required_plugins = %w(vagrant-hostsupdater)
+required_plugins = %w(vagrant-hostsupdater vagrant-bindfs)
 plugins_to_install = required_plugins.select { |plugin| not Vagrant.has_plugin? plugin }
 
 if not plugins_to_install.empty?
@@ -17,13 +17,24 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  # Create devbox with vagrant parameters
+  # Define VM parameters
   config.vm.define "devbox" do |devbox|
+    
+    # Operating system
     devbox.vm.box = "ubuntu/xenial64"
+
+    # Network
     devbox.vm.hostname = "dev.box"
     devbox.vm.network "private_network", ip: "10.10.10.10"
-    devbox.vm.synced_folder "~/projects", "/home/ubuntu/projects",
-      owner: "ubuntu", group: "www-data", mount_options: ["dmode=775,fmode=664"]
+
+    # Folders
+    devbox.vm.synced_folder "~/projects", "/home/ubuntu/nfs", type: "nfs"
+
+    devbox.bindfs.bind_folder "/home/ubuntu/nfs", "/home/ubuntu/projects",
+      perms: "u=rwX:g=rwD",
+      force_user: "ubuntu",
+      force_group: "www-data",
+      create_as_user: true
   end
 
   # Virtualbox parameters
