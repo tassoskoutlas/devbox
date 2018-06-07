@@ -17,7 +17,7 @@ Devbox works with the following software:
 Devbox assumes that projects are developed with Git and requires a valid RSA key
 from the local user which has been added in Github.
 
-## Usage
+## Install
 
 Get devbox in your local machine:
 
@@ -38,13 +38,33 @@ environment:
 vagrant up
 ```
 
+## Usage
+
 You can login to the devbox with the following command:
 
 ```
 vagrant ssh
 ```
 
-Happy coding! See below for configuration parameters.
+For changes that affect the operation of the server in `config.yml` you need
+to reprovision the environment (e.g. when adding new projects):
+
+```
+vagrant provision
+```
+
+For changes that the virtual machine in `config.yml` you need to reload the
+configuration (e.g. change the IP address):
+
+```
+varnish reload
+```
+
+To access vagrant help:
+
+```
+vagrant help
+```
 
 ## Configuration
 
@@ -56,11 +76,14 @@ variables contained within.
 The `remote_user` variable is used to set the user in the guest machine. The
 default user in Vagrant is ubuntu and is reccomended to be left as is.
 
-### Configuring an RSA key
+### Configuring Git, an RSA key and repositories
 
-The `rsa_key` variable accepts as input a path from the host machine which
-should resolve to an rsa key. It is used to authenticate in github and should be
-added there prior to any git related operations in the development server.
+The git configuration section contains variables that control the configuration
+of Git and RSA keys. You can control how your local key is named in devbox so
+you can add your development key indepedently of any other key already set.
+
+The repositories configuration section contains a variable that is used to setup
+the devbox `~/.ssh/config` file.
 
 ### Configuring the server stack
 
@@ -102,6 +125,9 @@ For each project the following parameters can be set:
 	- drupal
 	- symfony
 
+Each project has an associated domain which is being automatically discovered by
+vagrant and added to your `/etc/hosts`.
+
 ### Configuring additional software to be added
 
 The `additional_packages` variable allows additional software to be included in
@@ -121,51 +147,6 @@ that file there are parameters about:
 
 Please follow through [vagrant documentation](https://www.vagrantup.com/docs/)
 for a more thorough understanding of how it can be tweaked.
-
-## Usage
-
-### Using Vagrant
-
-To connect to the VM use the following:
-
-```
-vagrant ssh
-```
-
-For changes in `config.yml` to take effect use:
-
-```
-vagrant provision
-```
-
-For changes in `Vagrantfile` to take effect vagrant configuration need to be roloaded:
-
-```
-varnish reload
-```
-
-Access help via:
-
-```
-vagrant help
-```
-
-### Accessing projects
-
-Devbox listens to a private network with IP set to 10.10.10.10. Add an entry per
-project in your `/etc/hosts` file:
-
-```
-10.10.10.10    PROJECT_DOMAIN
-```
-
-Then point your browser to the domain in port 8000:
-
-```
-http://PROJECT_DOMAIN
-```
-
-You should see the homepage of your project.
 
 ## Contributions
 
