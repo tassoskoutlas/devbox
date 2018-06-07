@@ -1,0 +1,7 @@
+{% for repo in repositories %}
+Host {{ repo.name }}
+  HostName {{ repo.host }}
+  IdentityFile {{ git_rsa_key_dest }}
+
+{% endfor %}
+

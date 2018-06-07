@@ -19,7 +19,7 @@ tmp_path: "/home/ubuntu/nfs"
 
 # Git configuration
 git_user: ""
-git_eemail: ""
+git_email: ""
 git_rsa_key: ""
 
 # Remote user name used in devbox

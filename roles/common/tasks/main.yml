@@ -28,18 +28,29 @@
 
 - name: Add user RSA key
   copy:
-    src: "{{ rsa_key }}"
-    dest: "~/.ssh/id_rsa"
+    src: "{{ git_rsa_key }}"
+    dest: "{{ git_rsa_key_dest }}"
     mode: 0400
 
 - name: Add SSH config
-  copy:
-    src: ssh_config
+  template:
+    src: "ssh_config"
     dest: "~/.ssh/config"
     backup: yes
 
-- name: Add Github fingerprint to known_hosts file
-  shell: "ssh-keyscan -H github.com >> ~/.ssh/known_hosts"
-  args:
-    creates: "~/.ssh/known_hosts"
+- name: Add global Git config file
+  template:
+    src: "gitconfig"
+    dest: "~/.gitconfig"
 
+# - name: Read number of known_hosts
+#   command: wc -l ~/.ssh/known_hosts
+#   register: number_of_known_hosts
+
+# - name: Add RSA fingerprint of repositories to known_hosts
+#   shell: "ssh-keyscan -H {{ item.host }} >> ~/.ssh/known_hosts"
+#   with_items:
+#     - "{{ repositories }}"
+#   args:
+#     creates: "~/.ssh/known_hosts"
+ 

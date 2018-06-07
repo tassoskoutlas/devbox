@@ -18,8 +18,6 @@ config_yml['projects'].each do |project|
   end
 end
 
-puts project_domains
-
 # Install if required and load plugins.
 required_plugins = %w(vagrant-hostsupdater vagrant-bindfs)
 plugins_to_install = required_plugins.select { |plugin| not Vagrant.has_plugin? plugin }
