@@ -20,35 +20,34 @@ tmp_path: "/home/ubuntu/nfs"
 # Git configuration
 git_user: ""
 git_email: ""
-git_rsa_key: ""
+git_rsa_key: "~/.ssh/id_rsa"
+git_rsa_key_dest: "~/.ssh/id_rsa"
+
+# Repositories
+repositories:
+  - { name: github, host: github.com }
+  - { name: bitbucket, host: bitbucket.com}
+
+repositories_count: "{{ repositories | length }}"
+rebuild_known_hosts: false
 
 # Remote user name used in devbox
 remote_user: ubuntu
 
-# RSA key location
-rsa_key: "~/.ssh/id_rsa"
-
-# Configuration of server stack
-#
-# Configuration of devbox functionality.
-#
-# Comment out the parameters that are not needed to ensure that roles are not
-# included in the project.
-#
+# Software stack
 config_roles:
   - apache
   - php
   - mysql
   - projects
 
-# Projects root
+# Projects
+
+# Projects path
 projects_path: "{{ guest_path }}"
 
-# Projects
-# 
-# Dictionary to add projects.
-# Parameters:
-#  domain - string - URL to be used from host machine to access project.
+# Project parameters
+#
 #  docroot - string - the location of the project in devbox. It's syntax 
 #    contains {{ remote_user }} to make it box indepedent.
 #  db_user - string - the name of the database user to be used (empty for root)
@@ -71,8 +70,6 @@ projects:
 ## TODO
 
 # Additional packages
-#
-# Add additional packages in the variable below to be included in the server,
-additional_packages:
-  # - uncomment here 
+
+# Additional tasks
 
