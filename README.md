@@ -14,9 +14,6 @@ Devbox works with the following software:
   - VirtualBox
   - Ubuntu Xenial 16.04
 
-Devbox assumes that projects are developed with Git and requires a valid RSA key
-from the local user which has been added in Github.
-
 ## Install
 
 Get devbox in your local machine:
@@ -40,21 +37,21 @@ vagrant up
 
 ## Basic usage
 
-You can login to the devbox with the following command:
+Login to devbox via SSH:
 
 ```
 vagrant ssh
 ```
 
-For changes that affect the operation of the server in `config.yml` you need
-to reprovision the environment (e.g. when adding new projects):
+For server changes in `config.yml` to take effect (e.g. add a new project) you
+need to reprovision the environment:
 
 ```
 vagrant provision
 ```
 
-For changes that the virtual machine in `config.yml` you need to reload the
-configuration (e.g. change the IP address):
+For virtual machine changes in `config.yml` to take effect (e.g. change the IP
+address) you need to reload the configuration:
 
 ```
 varnish reload
@@ -122,6 +119,39 @@ following parameters:
   - **db_name** (_string_): The database to be used. If empty database creation is skipped
   - **tech** (_string_): The technology used in the project. Options include:
     empty, hugo, drupal, wordpress, symfony.
+
+### Configuring Xdebug
+Xdebug is enabled by default but you would need to set it up to your IDE. For
+Eclipse you need to do the following:
+
+  1. Add a new server
+  2. Configure the new server with xdebug
+  3. Run the debugger
+
+To setup a server go to `Window > Preferences > PHP > Servers` and add new. It
+will ask for the following:
+
+  - Server tab
+    - Server name: add the individual project name
+	- Base url: the domain configured in project
+	- Document root: the location of the project on your host system
+  - Debbuger tab
+    - Debugger: xdebug
+	- Port: 9000
+
+Next locate a file from your project in PHP Explorer, right click and select
+`Debug as > Debug configurations`. It will ask for the following:
+
+  - Server tab
+    - PHP server: select the one you just created
+	- File: select the project index file
+  - Debuger tab
+    - Ensure XDebug is selected
+	- Enable 'Break At First Line'
+	- Click debug
+
+This will launch a new window and a dialog box will appear informing about the
+debug perspective in Eclipse. Accept and start debugging.
 
 ### Configuring additional software to be added
 
