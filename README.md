@@ -38,7 +38,7 @@ environment:
 vagrant up
 ```
 
-## Usage
+## Basic usage
 
 You can login to the devbox with the following command:
 
@@ -71,10 +71,15 @@ vagrant help
 The development environment can be customised via the `config.yml` file and the
 variables contained within. 
 
-### Configuring a remote user
+### Configuring the VM
 
-The `remote_user` variable is used to set the user in the guest machine. The
-default user in Vagrant is ubuntu and is reccomended to be left as is.
+The virtual machine can be automatically configured via the variables in
+**Machine** and **Folder mapping**. There are a number of options that allow
+devbox to operate in various conditions.
+
+Folder mapping is achieved through NFS and bindfs to ensure that permisions are
+set as expected. By default devbox is using 775 for directories and 644 for
+files but behaviour can be overriden via `vm_folder_perm`.
 
 ### Configuring Git, an RSA key and repositories
 
@@ -83,50 +88,40 @@ of Git and RSA keys. You can control how your local key is named in devbox so
 you can add your development key indepedently of any other key already set.
 
 The repositories configuration section contains a variable that is used to setup
-the devbox `~/.ssh/config` file.
+the devbox `~/.ssh/config` file. Public key fingerprints can be used to validate
+a connection to a remote server. Devbox automatically adds RSA fingerprints
+in `~/.ssh/known_hosts` for the repositories declared.
 
 ### Configuring the server stack
 
 The `config_roles` variable is used to customise the software stack configured
 in the server. Comment out roles not needed.
 
-### Configuring your projects
+### Configuring projects
 
 Vagrant allows to share directories between the host and the guest
 systems. Devbox takes advantage of that feature to expose local projects which
 can then be served through the LAMP stack.
 
-Devbox expects a `projects` folder to exist in the same contains directory with
-devbox:
+Devbox is configurable to act as a standalone server hosting many projects or as
+a development environment within a particular project. In either case it expects
+that the folder containing the project or projects to be declared via
+`projects_path`.
 
-```
-.
-├── devbox
-└── projects
-   ├── projectA
-   ├── projectB
-   └── projectC
-```
+Each project is configured via the `projects` dictionary which accepts the
+following parameters:
 
-All directories contained withing projects will be exposed in `~/projects` in
-the guest system.
-
-For each project the following parameters can be set:
-
-- domain (string): The URI to access project.
-- docroot (string) The path of the project in devbox (user `{{ remote_user }}`
-  for indepedence
-- db_user (string): The name of the database user to be used (root will be used
-  if empty)
-- db_pass (string): The passwrd of the database user to be used (root will be used if empty)
-- db_name (string): The database name to be used (if empty database creation is skipped)
-- tech (string): The technology used in the project. Options include:
-    - hugo
-	- drupal
-	- symfony
-
-Each project has an associated domain which is being automatically discovered by
-vagrant and added to your `/etc/hosts`.
+  - **domain** (_string_): The URI to access project in the browser. The value is
+  automatically picked up and added to `/etc/hosts`.
+  - **docroot** (_string_) The path of the project in devbox. Can be any
+    location or combined with `projects_path`.
+  - **db_user** (_string_): The database user to be used. User is added if does
+  not exist. Leave empty to use root.
+  - **db_pass** (_string_): The database password for the user above. Leave empty to
+    use root's password.
+  - **db_name** (_string_): The database to be used. If empty database creation is skipped
+  - **tech** (_string_): The technology used in the project. Options include:
+    empty, hugo, drupal, wordpress, symfony.
 
 ### Configuring additional software to be added
 
@@ -135,18 +130,12 @@ the main build. It is intended for smaller packages that do not require
 customisation. If more software with significant customisation is needed
 consider to open a pull request.
 
-### Configuring Vagrant
+### Configuring additional tasks to be performed
 
-Devbox offers a complete development environment out of the box. Vagrant is
-controled through a `Vagrantfile` bunlded at the root of the repository. Within
-that file there are parameters about:
-
-  - vagrant options about the base image, synchronising folders, network, etc
-  - virtual machine options about memory, etc
-  - provision options about ansible
-
-Please follow through [vagrant documentation](https://www.vagrantup.com/docs/)
-for a more thorough understanding of how it can be tweaked.
+The `additional_tasks` variable allows additional tasks to be performed after
+the server has been provisioned. This can be used for some adhoc configuration
+like downloading emacs configuration specific to the user or adding custom
+aliases to `.bashrc`.
 
 ## Contributions
 
