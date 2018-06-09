@@ -3,6 +3,12 @@
 server_admin: admin@example.com
 
 # Software packages to be installed.
-packages_apache:
+apache_packages:
   - apache2
   - apache2-utils
+
+apache_modules:
+  - rewrite
+  - proxy
+  - proxy_fcgi
+

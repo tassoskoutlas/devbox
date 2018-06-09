@@ -9,6 +9,13 @@ DocumentRoot {{ item.project }}/{{ item.docroot }}
   Require all granted
 </Directory>
 
+<Proxy "fcgi://localhost/" enablereuse=on max=10>
+</Proxy>
+
+<FilesMatch "\.php$">
+  SetHandler "proxy:unix:{{ php_fpm_socket.stdout }}|fcgi://localhost/"
+</FilesMatch>
+
 ErrorLog /var/log/apache2/{{ item.domain }}_error.log
 CustomLog /var/log/apache2/{{ item.domain }}_access.log combined
 </VirtualHost>

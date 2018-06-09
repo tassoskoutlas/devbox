@@ -15,4 +15,4 @@ packages_php:
   - php7.0-zip
   - php7.0-mbstring
   - php-xdebug
-  - libapache2-mod-php
+

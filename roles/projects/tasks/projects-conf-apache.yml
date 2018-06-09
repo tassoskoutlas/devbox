@@ -1,5 +1,12 @@
 ---
 
+- name: Register PHP FPM socket
+  shell: "cat {{ php_config_dir }}/fpm/pool.d/www.conf | grep 'fpm.sock' | cut -f2 -d '=' | tr -d ' '"
+  register: php_fpm_socket
+
+- debug:
+    var: php_fpm_socket.stdout
+
 - name: Create project docroots
   become: yes
   file:
