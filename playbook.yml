@@ -5,7 +5,7 @@
 ##########################################
 
 - hosts: all
-  remote_user: "{{ remote_user }}"
+  remote_user: "{{ vm_user }}"
   vars_files:
     - config.yml
   gather_facts: yes

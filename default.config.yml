@@ -31,9 +31,6 @@ repositories:
 repositories_count: "{{ repositories | length }}"
 rebuild_known_hosts: false
 
-# Remote user name used in devbox
-remote_user: ubuntu
-
 # Software stack
 config_roles:
   - apache
