@@ -38,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define config_yml['vm_name'] do |devbox|
     
     # Operating system
-    devbox.vm.box = "ubuntu/xenial64"
+    devbox.vm.box = "ubuntu/bionic64"
 
     # Network
     devbox.vm.network "private_network", ip: config_yml['vm_ip']
