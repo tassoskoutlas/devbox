@@ -12,7 +12,7 @@ Devbox works with the following software:
   - Vagrant >= 2.1.1
   - Ansible >= 2.5
   - VirtualBox
-  - Ubuntu Xenial 16.04
+  - Ubuntu Bionic 18.04
 
 ## Install
 
