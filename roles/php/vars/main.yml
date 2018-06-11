@@ -1,6 +1,4 @@
 ---
-# PHP configuration directory.
-php_config_dir: "/etc/php/7.0/"
 
 # PHP packages to be installed.
 packages_php:

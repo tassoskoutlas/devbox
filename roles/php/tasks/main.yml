@@ -8,5 +8,12 @@
   with_items: "{{ packages_php }}"
   notify: restart apache
 
+- name: Register PHP config path
+  shell: "php --ini | grep 'Configuration File (php.ini) Path:' | cut -d ':' -f2 | tr -d ' ' | cut -d '/' -f1-4"
+  register: php_config_path
+
+- set_fact:
+    php_config_dir: "{{ php_config_path.stdout }}"
+
 - include: php-xdebug.yml
 - include: php-composer.yml
