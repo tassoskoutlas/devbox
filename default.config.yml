@@ -7,15 +7,15 @@ vm_name: "devbox"
 vm_hostname: "dev.box"
 vm_ram: "2048"
 vm_ip: "10.10.10.10"
-vm_user: "ubuntu"
+vm_user: "vagrant"
 vm_group: "www-data"
 
 # Folder mapping
 vm_network_type: "nfs"
 vm_folder_perm: "u=rwX:g=rwD"
 host_path: "~/projects"
-guest_path: "/home/ubuntu/projects"
-tmp_path: "/home/ubuntu/nfs"
+guest_path: "/home/vagrant/projects"
+tmp_path: "/home/vagrant/nfs"
 
 # Git configuration
 git_user: ""
