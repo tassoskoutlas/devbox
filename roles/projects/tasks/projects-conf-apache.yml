@@ -1,13 +1,9 @@
 ---
 
-- name: Register PHP FPM socket
-  shell: "cat {{ php_config_dir }}/fpm/pool.d/www.conf | grep 'fpm.sock' | cut -f2 -d '=' | tr -d ' '"
-  register: php_fpm_socket
-
 - name: Create project docroots
   become: yes
   file:
-    path: "{{ item.project }}/{{ item.docroot }}"
+    path: "{{ item.path }}/{{ item.docroot }}"
     group: www-data
     mode: 0775
     state: directory

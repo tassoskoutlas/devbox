@@ -1,9 +1,9 @@
 <VirtualHost *:80>
 
 ServerName {{ item.domain }}
-DocumentRoot {{ item.project }}/{{ item.docroot }}
+DocumentRoot {{ item.path }}/{{ item.docroot }}
 
-<Directory "{{ item.project }}/{{ item.docroot }}">
+<Directory "{{ item.path }}/{{ item.docroot }}">
   Options FollowSymLinks
   AllowOverride All
   Require all granted

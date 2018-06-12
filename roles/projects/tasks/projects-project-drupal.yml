@@ -1,0 +1,5 @@
+---
+
+- debug:
+    msg: "Project {{ item.domain }} is a Drupal project."
+

@@ -1,4 +1,53 @@
 ---
 
-- include: projects-conf-apache.yml
-- include: projects-conf-mysql.yml
+- name: Register PHP FPM socket
+  shell: "cat {{ php_config_dir }}/fpm/pool.d/www.conf | grep 'fpm.sock' | cut -f2 -d '=' | tr -d ' '"
+  register: php_fpm_socket
+
+- name: Create project path or ensure it exists
+  file:
+    path: "{{ item.path }}"
+    group: www-data
+    mode: 0775
+    state: directory
+  with_items: "{{ projects }}"
+
+- name: Discover which projects have .git files
+  stat:
+    path: "{{ item.path }}/.git"
+  with_items: "{{ projects }}"
+  register: dot_git
+
+# - debug:
+#     var: dot_git
+
+- name: Initialise projects with repositories
+  include_tasks: projects-project-git.yml
+  with_items: "{{ dot_git.results }}"
+  when: (item.stat.exists == false) and (item.item.repo is defined) and (item.item.repo != '')
+
+- name: Initialise custom or empty projects
+  include_tasks: projects-project-custom.yml
+  with_items: "{{ projects }}"
+  when: (item.repo == '') and (item.type == '' or item.type == 'custom')
+
+- name: Initialise Hugo projects
+  include_tasks: projects-project-hugo.yml
+  with_items: "{{ projects }}"
+  when: (item.repo == '') and (item.type == 'hugo')
+
+- name: Initialise Drupal projects
+  include_tasks: projects-project-drupal.yml
+  with_items: "{{ projects }}"
+  when: (item.repo == '') and (item.type == 'drupal')
+
+- name: Initialise Symfony projects
+  include_tasks: projects-project-symfony.yml
+  with_items: "{{ projects }}"
+  when: (item.repo == '') and (item.type == 'symfony')
+
+- name: Execute Apache config
+  include_tasks: projects-conf-apache.yml
+
+- name: Execute MySQL config
+  include_tasks: projects-conf-mysql.yml
