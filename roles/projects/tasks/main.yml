@@ -24,27 +24,27 @@
 - name: Initialise projects with repositories
   include_tasks: projects-project-git.yml
   with_items: "{{ dot_git.results }}"
-  when: (item.stat.exists == false) and (item.item.repo is defined) and (item.item.repo != '')
+  when: (item.stat.exists == false) and (item.item.repo != '')
 
-- name: Initialise custom or empty projects
-  include_tasks: projects-project-custom.yml
-  with_items: "{{ projects }}"
-  when: (item.repo == '') and (item.type == '' or item.type == 'custom')
+# - name: Initialise custom or empty projects
+#   include_tasks: projects-project-custom.yml
+#   with_items: "{{ dot_git.results }}"
+#   when: (item.stat.exists == false) and (item.repo == '') and (item.type == '' or item.type == 'custom')
 
-- name: Initialise Hugo projects
-  include_tasks: projects-project-hugo.yml
-  with_items: "{{ projects }}"
-  when: (item.repo == '') and (item.type == 'hugo')
+# - name: Initialise Hugo projects
+#   include_tasks: projects-project-hugo.yml
+#   with_items: "{{ dot_git.results }}"
+#   when: (item.stat.exists == false) and (item.repo == '') and (item.type == 'hugo')
 
 - name: Initialise Drupal projects
   include_tasks: projects-project-drupal.yml
-  with_items: "{{ projects }}"
-  when: (item.repo == '') and (item.type == 'drupal')
+  with_items: "{{ dot_git.results }}"
+  when: (item.stat.exists == false) and (item.repo == '') and (item.type == 'drupal')
 
-- name: Initialise Symfony projects
-  include_tasks: projects-project-symfony.yml
-  with_items: "{{ projects }}"
-  when: (item.repo == '') and (item.type == 'symfony')
+# - name: Initialise Symfony projects
+#   include_tasks: projects-project-symfony.yml
+#   with_items: "{{ dot_git.results }}"
+#   when: (item.stat.exists == false) and (item.repo == '') and (item.type == 'symfony')
 
 - name: Execute Apache config
   include_tasks: projects-conf-apache.yml
