@@ -1,5 +1,17 @@
 ---
 
 - debug:
-    msg: "Project {{ item.domain }} is a symfony project."
+    msg: "Project {{ item.item.path }} is a symfony project."
+
+- composer: 
+    command: "create-project"
+    arguments: "symfony/skeleton . --quiet"
+    working_dir: "{{ item.item.path }}"
+
+- name: Initialise git repo in the Symfony application
+  command: "git init ."
+  chdir: "{{ item.item.path }}"
+  args:
+    creates: "{{ item.item.path }}/.git"
+
 
