@@ -13,6 +13,13 @@
     state: present
   with_items: "{{ packages_utils }}"
 
+- name: Update devbox motd
+  become: yes
+  copy:
+    src: "motd"
+    dest: "/etc/update-motd.d/00-a_motd_for_devbox"
+    mode: a+x
+
 - name: Create ~/bin directory
   file:
     path: "~/bin"
