@@ -1,0 +1,7 @@
+---
+
+- name: Install Laravel installer
+  composer:
+    command: require
+    global_command: yes
+    arguments: "laravel/installer"

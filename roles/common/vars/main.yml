@@ -12,3 +12,4 @@ packages_utils:
   - git
   - tmux
   - shellcheck
+  - unzip

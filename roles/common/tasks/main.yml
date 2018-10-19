@@ -2,9 +2,10 @@
 
 - name: Update apt
   become: yes
-  apt: 
+  apt:
+    upgrade: yes
     update_cache: yes 
-    cache_valid_time: 8400
+    cache_valid_time: 86400 #one day
 
 - name: Install utilities
   become: yes
@@ -25,13 +26,6 @@
     path: "~/bin"
     state: directory
     mode: 0775
-
-- name: Add ~/bin to PATH
-  lineinfile:
-    dest: "~/.profile"
-    regexp: "PATH"
-    line: "PATH=\"$HOME/bin:$PATH\""
-    backup: yes
 
 - name: Add user RSA key
   copy:

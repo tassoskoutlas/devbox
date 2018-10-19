@@ -17,3 +17,12 @@
     mode: a+x
     state: file
 
+- name: Add Composer's system-wide vendor dir to path
+  blockinfile:
+    path: "~/.profile"
+    block: |
+      # set PATH so it includes Composer's system-wide vendor directory if it exists
+      if [ -d "$HOME/.config/composer/vendor/bin/" ] ; then
+        PATH="$HOME/.config/composer/vendor/bin/:$PATH"
+      fi
+    backup: yes

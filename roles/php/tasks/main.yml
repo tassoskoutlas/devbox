@@ -17,3 +17,4 @@
 
 - include: php-xdebug.yml
 - include: php-composer.yml
+- include: php-laravel.yml
