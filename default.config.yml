@@ -47,22 +47,25 @@ projects_path: "{{ guest_path }}"
 #
 #  docroot - string - the location of the project in devbox. It's syntax 
 #    contains {{ remote_user }} to make it box indepedent.
+#  path - string - the main projects path
 #  db_user - string - the name of the database user to be used (empty for root)
 #  db_pass - string - the passwrd of the database user to be used (empty for 
 #    root)
 #  db_name - string - the database name to be used (if empty database is 
 #    skipped)
 #  tech - string - the technology used in the project (hugo, drupal, symfony)
+#  repo - string - git url of the project
 
 projects:
 
   - domain: ""
-    project: ""
+    path: ""
     docroot: ""
     db_user: ""
     db_pass: ""
     db_name: ""
     tech: ""
+    repo: ""
 
 ## TODO
 
