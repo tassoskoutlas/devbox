@@ -15,6 +15,13 @@
 - set_fact:
     php_config_dir: "{{ php_config_path.stdout }}"
 
+- name: Update PHP memory limit
+  become: yes
+  lineinfile:
+    path: "{{ php_config_dir }}/fpm/php.ini"
+    regexp: "^memory_limit"
+    line: "memory_limit = 1024M"
+
 - include: php-xdebug.yml
 - include: php-composer.yml
 - include: php-laravel.yml
