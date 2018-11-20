@@ -13,3 +13,5 @@ packages_utils:
   - tmux
   - shellcheck
   - unzip
+  - htop
+  
