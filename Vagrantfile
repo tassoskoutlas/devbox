@@ -69,6 +69,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Provision with Ansible
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "playbook.yml"
+    ansible.compatibility_mode = "2.0"
   end
 
 end
