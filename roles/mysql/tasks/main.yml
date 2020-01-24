@@ -51,3 +51,5 @@
 - name: Download and install Adminer
   become: yes
   shell: "wget -q -O /var/www/html/adminer/index.php https://github.com/vrana/adminer/releases/download/v4.7.5/adminer-4.7.5-mysql-en.php"
+  args:
+    creates: "/var/www/html/adminer/index.php"
