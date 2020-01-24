@@ -4,6 +4,7 @@
   shell: "curl -sS https://getcomposer.org/installer | php"
   args:
     creates: "/usr/local/bin/composer"
+    warn: false
 
 - name: Move composer to /usr/local/bin
   become: yes
