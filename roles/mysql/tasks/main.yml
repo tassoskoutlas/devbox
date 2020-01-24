@@ -12,9 +12,8 @@
 - name: Install MySQL packages
   become: yes
   apt: 
-    name: "{{ item }}"
+    name: "{{ packages_mysql }}"
     state: present
-  with_items: "{{ packages_mysql }}"
   notify: restart mysql
 
 - name: Create MySQL root password
