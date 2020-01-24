@@ -6,8 +6,10 @@
     creates: "/usr/local/bin/composer"
 
 - name: Move composer to /usr/local/bin
-  shell: "sudo mv ~/composer.phar /usr/local/bin/composer"
+  become: yes
+  shell: "mv composer.phar /usr/local/bin/composer"
   args:
+    chdir: "/home/{{ vm_user }}"
     creates: "/usr/local/bin/composer"
 
 - name: Make composer executable
