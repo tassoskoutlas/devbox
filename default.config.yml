@@ -56,16 +56,16 @@ projects_path: "{{ guest_path }}"
 #  tech - string - the technology used in the project (hugo, drupal, symfony)
 #  repo - string - git url of the project
 
-projects:
+#projects:
 
-  - domain: ""
-    path: ""
-    docroot: ""
-    db_user: ""
-    db_pass: ""
-    db_name: ""
-    tech: ""
-    repo: ""
+  #- domain: ""
+    #path: ""
+    #docroot: ""
+    #db_user: ""
+    #db_pass: ""
+    #db_name: ""
+    #tech: ""
+    #repo: ""
 
 ## TODO
 
