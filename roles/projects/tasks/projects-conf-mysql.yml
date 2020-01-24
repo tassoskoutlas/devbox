@@ -6,6 +6,7 @@
     state: present
   with_items:
     - "{{ projects }}"
+  when: item.db_name != ""
 
 - name: Add users and privileges to project databases
   mysql_user:
