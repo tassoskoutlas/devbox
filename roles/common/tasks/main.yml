@@ -17,7 +17,7 @@
   become: yes
   copy:
     src: "motd"
-    dest: "/etc/update-motd.d/00-a_motd_for_devbox"
+    dest: "/etc/update-motd.d/00-devbox-motd"
     mode: a+x
 
 - name: Create ~/bin directory
