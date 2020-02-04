@@ -40,6 +40,10 @@ config_roles:
   - mysql
   - projects
 
+# PHP
+php_memory_limit: "1536M"
+php_timezone: "Europe/London"
+
 # Projects
 
 # Projects path

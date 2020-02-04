@@ -5,7 +5,7 @@
   apt: 
     name: "{{ packages_php }}"
     state: present
-  notify: restart apache
+  notify: restart php
 
 - name: Register PHP config path
   shell: "php --ini | grep 'Configuration File (php.ini) Path:' | cut -d ':' -f2 | tr -d ' ' | cut -d '/' -f1-4"
@@ -19,7 +19,16 @@
   lineinfile:
     path: "{{ php_config_dir }}/fpm/php.ini"
     regexp: "^memory_limit"
-    line: "memory_limit = 1024M"
+    line: "memory_limit = {{ php_memory_limit }}"
+  notify: restart php
+
+- name: Update PHP timezone
+  become: yes
+  lineinfile:
+    path: "{{ php_config_dir }}/fpm/php.ini"
+    regexp: "^;date.timezone"
+    line: "date.timezone = {{ php_timezone }}"
+  notify: restart php
 
 - include: php-xdebug.yml
 - include: php-composer.yml
