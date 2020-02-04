@@ -1,0 +1,15 @@
+---
+
+- name: Install NodeJS packages
+  become: yes
+  apt:
+    name: "{{ packages_node }}"
+    state: present
+
+- name: Install NPM packages
+  become: yes
+  npm:
+    name: "{{ item }}"
+    global: yes
+    state: present
+  with_items: "{{ packages_npm }}"
