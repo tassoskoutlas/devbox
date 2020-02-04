@@ -13,5 +13,6 @@ packages_php:
   - php-mbstring
   - php-mailparse
   - php-imap
+  - php-bcmath
   - php-xdebug
 
