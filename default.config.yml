@@ -5,6 +5,7 @@
 # Machine
 vm_name: "devbox"
 vm_hostname: "dev.box"
+vm_cpus: "4"
 vm_ram: "2048"
 vm_ip: "10.10.10.10"
 vm_user: "vagrant"
@@ -33,10 +34,15 @@ rebuild_known_hosts: false
 
 # Software stack
 config_roles:
+  - nodejs
   - apache
   - php
   - mysql
   - projects
+
+# PHP
+php_memory_limit: "1536M"
+php_timezone: "Europe/London"
 
 # Projects
 

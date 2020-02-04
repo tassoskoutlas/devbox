@@ -21,3 +21,4 @@
       - "{{ config_roles }}"
     loop_control:
       loop_var: "roles"
+    when: config_roles is defined

@@ -11,5 +11,9 @@ packages_php:
   - php-gd
   - php-zip
   - php-mbstring
+  - php-mailparse
+  - php-imap
+  - php-bcmath
+  - php-intl
   - php-xdebug
 

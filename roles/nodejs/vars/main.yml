@@ -1,0 +1,9 @@
+---
+
+# NodeJS packages to be installed.
+packages_node:
+  - nodejs
+
+# NPM packages to be installed.
+packages_npm:
+  - grunt

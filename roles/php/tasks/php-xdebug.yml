@@ -6,3 +6,4 @@
     src: xdebug.ini
     dest: "{{ php_config_dir }}/mods-available/xdebug.ini"
     backup: yes
+  notify: restart php
