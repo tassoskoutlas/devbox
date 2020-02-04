@@ -58,7 +58,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Virtualbox parameters
   config.vm.provider "virtualbox" do |vb|
     vb.name = config_yml['vm_name']
-    vb.cpus = 2
+    vb.cpus = config_yml['vm_cpus']
     vb.customize ["modifyvm", :id, "--memory", config_yml['vm_ram']]
   end
 
