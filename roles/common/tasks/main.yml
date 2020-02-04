@@ -1,5 +1,17 @@
 ---
 
+- name: Add NodeSource apt repository key
+  become: yes
+  apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+    state: present
+
+- name: Install NodeSource apt repository
+  become: yes
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/node_10.x bionic main"
+    state: present
+
 - name: Update apt
   become: yes
   apt:
