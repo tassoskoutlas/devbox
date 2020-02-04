@@ -33,6 +33,7 @@ rebuild_known_hosts: false
 
 # Software stack
 config_roles:
+  - nodejs
   - apache
   - php
   - mysql
