@@ -7,8 +7,14 @@ apache_packages:
   - apache2
   - apache2-utils
 
-apache_modules:
+apache_enable_modules:
   - rewrite
   - proxy
   - proxy_fcgi
+  #- expires
+  #- header
+
+#apache_disable_modules:
+  #- php7.2
+  #- mpm_preform
 
