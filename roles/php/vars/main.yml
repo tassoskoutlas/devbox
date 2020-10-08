@@ -10,10 +10,10 @@ packages_php:
   - php-fpm
   - php-gd
   - php-zip
+  - php-zlib
   - php-mbstring
   - php-mailparse
   - php-imap
   - php-bcmath
   - php-intl
   - php-xdebug
-
