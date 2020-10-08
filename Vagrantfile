@@ -38,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define config_yml['vm_name'] do |devbox|
     
     # Operating system
-    devbox.vm.box = "ubuntu/bionic64"
+    devbox.vm.box = "ubuntu/focal64"
 
     # Network
     devbox.vm.network "private_network", ip: config_yml['vm_ip']
@@ -62,9 +62,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", config_yml['vm_ram']]
   end
 
-  # Workaround for ubuntu/xenial not having /usr/bin/python
-  config.vm.provision "shell",
-    inline: "if [[ ! -f /usr/bin/python ]]; then sudo ln -s /usr/bin/python3 /usr/bin/python; fi"
+  # # Workaround for ubuntu/xenial not having /usr/bin/python
+  # config.vm.provision "shell",
+  #   inline: "if [[ ! -f /usr/bin/python ]]; then sudo ln -s /usr/bin/python3 /usr/bin/python; fi"
 
   # Provision with Ansible
   config.vm.provision "ansible" do |ansible|
