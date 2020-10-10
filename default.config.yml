@@ -43,6 +43,11 @@ config_roles:
 # PHP
 php_memory_limit: "1536M"
 php_timezone: "Europe/London"
+php_xdebug: true
+php_laravel: false
+php_symfony: false
+php_drupal: false
+php_wp: false
 
 # Projects
 

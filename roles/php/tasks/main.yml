@@ -30,6 +30,12 @@
     line: "date.timezone = {{ php_timezone }}"
   notify: restart php
 
-- include: php-xdebug.yml
 - include: php-composer.yml
-- include: php-laravel.yml
+
+- name: Enable xdebug
+  include_tasks: php-xdebug.yml
+  when: php_xdebug == true
+
+- name: Enable laravel integration
+  include_tasks: php-laravel.yml
+  when: php_laravel == true

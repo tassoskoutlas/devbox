@@ -1,0 +1,5 @@
+php_xdebug: true
+php_laravel: true
+php_symfony: true
+php_drupal: true
+php_wp: true
