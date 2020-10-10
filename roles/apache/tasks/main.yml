@@ -7,12 +7,31 @@
     state: present
   notify: restart apache
 
+- name: Stop Apache
+  become: yes
+  service:
+    name: apache2
+    state: stopped
+
+- name: Disable Apache modules
+  become: yes
+  apache2_module:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ apache_disable_modules }}"
+
 - name: Enable Apache modules
   become: yes
-  apache2_module: 
+  apache2_module:
     name: "{{ item }}"
     state: present
   with_items: "{{ apache_enable_modules }}"
   notify: restart apache
+
+- name: Start Apache
+  become: yes
+  service:
+    name: apache2
+    state: started
 
 # TODO: Add configuration to harden the server (signature off, etc)

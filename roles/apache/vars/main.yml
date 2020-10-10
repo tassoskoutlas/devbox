@@ -11,10 +11,9 @@ apache_enable_modules:
   - rewrite
   - proxy
   - proxy_fcgi
-  #- expires
-  #- header
+  - mpm_event
 
-#apache_disable_modules:
-  #- php7.2
-  #- mpm_preform
+apache_disable_modules:
+  - php7.4
+  - mpm_prefork
 
