@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Define VM parameters
   config.vm.define config_yml['vm_name'] do |devbox|
-    
+
     # Operating system
     devbox.vm.box = "ubuntu/focal64"
 
@@ -60,6 +60,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.name = config_yml['vm_name']
     vb.cpus = config_yml['vm_cpus']
     vb.customize ["modifyvm", :id, "--memory", config_yml['vm_ram']]
+
+    # Workaround for ubuntu/focal64 and virtualbox 6.1
+    vb.customize ["modifyvm", :id, "--uartmode1", "file", File::NULL]
   end
 
   # # Workaround for ubuntu/xenial not having /usr/bin/python

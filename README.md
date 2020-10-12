@@ -2,17 +2,17 @@
 
 ## Prerequisites
 
-Devbox is a virtual devevelopment box for PHP and JavaScruipt development
+Devbox is a virtual devevelopment box for PHP and JavaScript development
 (including frameworks like Hugo, Symfony, WordPress and Drupal). Using the LAMP
 stack provided you can start development without worrying about setting up your
 computer as a development environment.
 
 Devbox works with the following software:
 
-  - Vagrant >= 2.1.1
-  - Ansible >= 2.5
-  - VirtualBox
-  - Ubuntu Bionic 20.04
+  - Vagrant >= 2.2.10
+  - Ansible >= 2.9.6
+  - VirtualBox >= 6.1
+  - Ubuntu 20.04.1 LTS (Focal Fossa)
 
 ## Install
 
@@ -66,7 +66,7 @@ vagrant help
 ## Configuration
 
 The development environment can be customised via the `config.yml` file and the
-variables contained within. 
+variables contained within.
 
 ### Configuring the VM
 
