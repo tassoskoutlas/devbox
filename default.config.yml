@@ -64,7 +64,7 @@ projects_path: "{{ guest_path }}"
 #    root)
 #  db_name - string - the database name to be used (if empty database is 
 #    skipped)
-#  tech - string - the technology used in the project (hugo, drupal, symfony)
+#  type - string - the technology used in the project (hugo, drupal, symfony)
 #  repo - string - git url of the project
 
 #projects:
@@ -75,7 +75,7 @@ projects_path: "{{ guest_path }}"
     #db_user: ""
     #db_pass: ""
     #db_name: ""
-    #tech: ""
+    #type: ""
     #repo: ""
 
 ## TODO

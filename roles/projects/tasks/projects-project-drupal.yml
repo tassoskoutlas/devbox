@@ -1,5 +1,19 @@
 ---
 
-- debug:
-    msg: "Project {{ item.domain }} is a Drupal project."
+- name: Create codebase
+  composer:
+    command: create-project
+    arguments: drupal/recommended-project .
+    working-dir: "{{ item.item.path }}"
 
+- name: Create settings.php
+  copy:
+    src: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/default.settings.php"
+    dest: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/settings.php"
+    remote_src: yes
+
+- name: Create settings.local.php
+  copy:
+    src: "{{ item.item.path }}/{{ item.item.docroot }}/sites/example.settings.local.php"
+    dest: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/settings.local.php"
+    remote_src: yes
