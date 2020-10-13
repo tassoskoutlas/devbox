@@ -17,3 +17,18 @@
     src: "{{ item.item.path }}/{{ item.item.docroot }}/sites/example.settings.local.php"
     dest: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/settings.local.php"
     remote_src: yes
+
+- name: Create cached twig files templates
+  become: yes
+  file:
+    path: /tmp/twig-cache
+    owner: www-data
+    group: www-data
+    state: directory
+
+- name: Update cache twig definition on settings.local.php
+  blockinfile:
+    path: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/settings.local.php"
+    block: |
+      $settings['php_storage']['twig']['directory'] = 'tmp/twig-cache/php';
+      $settings['php_storage']['twig']['secret'] = $settings['hash_salt'];
