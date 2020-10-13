@@ -1,0 +1,7 @@
+---
+
+- name: Install Drush
+  composer:
+    command: require
+    global_command: yes
+    arguments: "drush/drush:^10.0.0"

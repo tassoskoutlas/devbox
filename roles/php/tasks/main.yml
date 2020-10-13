@@ -39,3 +39,7 @@
 - name: Enable laravel integration
   include_tasks: php-laravel.yml
   when: php_laravel == true
+
+- name: Enable Drupal tools
+  include_tasks: php-drupal.yml
+  when: php_drupal == true
