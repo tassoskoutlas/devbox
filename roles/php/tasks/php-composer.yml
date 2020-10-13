@@ -29,3 +29,9 @@
         PATH="$HOME/.config/composer/vendor/bin/:$PATH"
       fi
     backup: yes
+
+- name: Update composer to latest version
+  become: yes
+  composer:
+    command: self-update
+    global-command: yes
