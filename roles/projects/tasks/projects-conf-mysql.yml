@@ -4,6 +4,8 @@
   mysql_db: 
     name: "{{ item.db_name }}"
     state: present
+    collation: utf8mb4_unicode_ci
+    encoding: utf8mb4
   with_items:
     - "{{ projects }}"
   when: item.db_name != ""
