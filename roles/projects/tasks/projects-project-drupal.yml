@@ -11,12 +11,14 @@
     src: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/default.settings.php"
     dest: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/settings.php"
     remote_src: yes
+    force: no
 
 - name: Create settings.local.php
   copy:
     src: "{{ item.item.path }}/{{ item.item.docroot }}/sites/example.settings.local.php"
     dest: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/settings.local.php"
     remote_src: yes
+    force: no
 
 - name: Create cached twig files templates
   become: yes
@@ -30,5 +32,5 @@
   blockinfile:
     path: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/settings.local.php"
     block: |
-      $settings['php_storage']['twig']['directory'] = 'tmp/twig-cache/php';
+      $settings['php_storage']['twig']['directory'] = '/tmp/twig-cache/php';
       $settings['php_storage']['twig']['secret'] = $settings['hash_salt'];
