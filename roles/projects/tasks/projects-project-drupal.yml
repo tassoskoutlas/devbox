@@ -13,6 +13,37 @@
     remote_src: yes
     force: no
 
+- name: Update Drupal's hash_salt setting
+  lineinfile:
+    path: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/settings.php"
+    regexp: "^\\$settings\\['hash_salt"
+    line: "$settings['hash_salt'] = 'DvkOcqLrxtGYNv25npi1r2+UEF43EASGk4JdSTVRCx4KSvygbbRWRps6WbLwP2NnZeOhJ36X0g==';"
+
+- name: Update Drupal's config directory setting
+  lineinfile:
+    path: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/settings.php"
+    regexp: "^\\#\\ \\$settings\\['config_sync_directory"
+    line: "$settings['config_sync_directory'] = '../config/sync';"
+
+- name: Add database config into Drupal's settings
+  blockinfile:
+    path: "{{ item.item.path }}/{{ item.item.docroot }}/sites/default/settings.php"
+    block: |
+      $databases['default']['default'] = [
+        'database' => getenv('DB_NAME'),
+        'username' => getenv('DB_USER'),
+        'password' => getenv('DB_PASS'),
+        'host' => 'localhost',
+        'port' => '3306',
+        'driver' => 'mysql',
+        'prefix' => '',
+        'collation' => 'utf8mb4_general_ci',
+      ];
+
+      if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+        include $app_root . '/' . $site_path . '/settings.local.php';
+      }
+
 - name: Create settings.local.php
   copy:
     src: "{{ item.item.path }}/{{ item.item.docroot }}/sites/example.settings.local.php"
