@@ -12,7 +12,7 @@
 - name: Create project vhosts
   become: yes
   template:
-    src: "generic.vhost.j2"
+    src: "{{ item.type }}.vhost.j2"
     dest: "/etc/apache2/sites-available/{{ item.domain }}.conf"
     owner: root
     group: root
