@@ -112,13 +112,10 @@ following parameters:
   automatically picked up and added to `/etc/hosts`.
   - **docroot** (_string_) The path of the project in devbox. Can be any
     location or combined with `projects_path`.
-  - **db_user** (_string_): The database user to be used. User is added if does
-  not exist. Leave empty to use root.
-  - **db_pass** (_string_): The database password for the user above. Leave empty to
-    use root's password.
-  - **db_name** (_string_): The database to be used. If empty database creation is skipped
-  - **tech** (_string_): The technology used in the project. Options include:
+  - **type** (_string_): The technology used in the project. Options include:
     empty, hugo, drupal, wordpress, symfony.
+  - **database** (_string_): The database to be used. If empty database creation is skipped
+  - **repo** (_string_): a git path to checkout existing projects (uses path)
 
 ### Configuring Xdebug
 Xdebug is enabled by default but you would need to set it up to your IDE. For
