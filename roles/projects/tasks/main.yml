@@ -36,10 +36,10 @@
 #   with_items: "{{ dot_git.results }}"
 #   when: (item.stat.exists == false) and (item.repo == '') and (item.type == 'hugo')
 
-# - name: Initialise Drupal projects
-#   include_tasks: projects-project-drupal.yml
-#   with_items: "{{ dot_git.results }}"
-#   when: (item.stat.exists == false) and (item.repo == '') and (item.type == 'drupal')
+- name: Initialise Drupal projects
+  include_tasks: projects-project-drupal.yml
+  with_items: "{{ dot_git.results }}"
+  when: (item.stat.exists == false) and (item.item.repo == '') and (item.item.type == 'drupal')
 
 # - name: Initialise Symfony projects
 #   include_tasks: projects-project-symfony.yml

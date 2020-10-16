@@ -41,6 +41,21 @@
     dest: "~/.my.cnf"
     mode: 0600
   when: not mysql_pass.stat.exists
+
+- name: Create DB environment variables for Apache envvars
+  template:
+    src: apache-envvars.j2
+    dest: "~/.apache-envvars"
+    mode: 0700
+  when: not mysql_pass.stat.exists
+
+- name: Register DB environment variables with Apache envvars
+  become: yes
+  blockinfile:
+    path: /etc/apache2/envvars
+    block: ". /home/{{ vm_user }}/.apache-envvars"
+  when: not mysql_pass.stat.exists
+  notify: restart apache
   
 - name: Create Adminer directory
   become: yes

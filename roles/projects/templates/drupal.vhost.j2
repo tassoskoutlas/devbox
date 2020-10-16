@@ -1,0 +1,26 @@
+<VirtualHost *:80>
+
+	ServerName {{ item.domain }}
+	DocumentRoot {{ item.path }}/{{ item.docroot }}
+
+	<Directory "{{ item.path }}/{{ item.docroot }}">
+	  Options FollowSymLinks
+	  AllowOverride All
+	  Require all granted
+	</Directory>
+
+	<FilesMatch "\.php$">
+	  SetHandler "proxy:unix:{{ php_fpm_socket.stdout }}|fcgi://localhost/"
+	</FilesMatch>
+
+	<Proxy "fcgi://localhost/">
+	</Proxy>
+
+	ErrorLog ${APACHE_LOG_DIR}/{{ item.domain }}_error.log
+	CustomLog ${APACHE_LOG_DIR}/{{ item.domain }}_access.log combined
+
+	SetEnv DB_USER ${DB_USER}
+	SetEnv DB_PASS ${DB_PASS}
+	SetEnv DB_NAME {{ item.database }}
+
+</VirtualHost>
