@@ -15,4 +15,11 @@
   with_items: "{{ apache_modules }}"
   notify: restart apache
 
+- name: Register environment variables with Apache
+  become: yes
+  blockinfile:
+    path: /etc/apache2/envvars
+    block: ". /home/{{ vm_user }}/.envvars"
+  notify: restart apache
+
 # TODO: Add configuration to harden the server (signature off, etc)
