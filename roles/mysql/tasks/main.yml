@@ -42,18 +42,15 @@
     mode: 0600
   when: not mysql_pass.stat.exists
 
-- name: Create DB environment variables for Apache envvars
-  template:
-    src: apache-envvars.j2
-    dest: "~/.apache-envvars"
-    mode: 0700
-  when: not mysql_pass.stat.exists
-
-- name: Register DB environment variables with Apache envvars
-  become: yes
+- name: Add DB environmental variables to .envvars
   blockinfile:
-    path: /etc/apache2/envvars
-    block: ". /home/{{ vm_user }}/.apache-envvars"
+    path: "~/.envvars"
+    block: |
+      export {{ item.name }}={{ item.value }}
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+  loop:
+    - { name: "DB_USER", value: "root" }
+    - { name: "DB_PASS", value: "{{ mysql_root_pass.stdout }}" }
   when: not mysql_pass.stat.exists
   notify: restart apache
   
