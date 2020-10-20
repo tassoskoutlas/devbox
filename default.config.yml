@@ -32,6 +32,15 @@ repositories:
 repositories_count: "{{ repositories | length }}"
 rebuild_known_hosts: false
 
+# Environment variables
+#
+# Append to add more
+#   name  - string (required) - name of environment variable
+#   value - string (required) - value of environment variable
+
+environment_variables:
+  - { name: "ENV", value: "local" }
+
 # Software stack
 config_roles:
   - nodejs

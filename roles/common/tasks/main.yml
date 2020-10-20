@@ -19,6 +19,32 @@
     state: directory
     mode: 0775
 
+- name: Create enviromental variables
+  file:
+    path: "~/.envvars"
+    state: touch
+    mode: 0700
+
+- name: Add config enviromental variables
+  blockinfile:
+    path: "~/.envvars"
+    block: |
+      export {{ item.name }}={{ item.value }}
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+  with_items:
+    - "{{ environment_variables }}"
+  when:
+    - environment_variables is defined
+
+- name: Add enviromental variables to .bashrc
+  blockinfile:
+    path: "~/.bashrc"
+    block: |
+      # Source environmental variables set by user
+      if [ -f ~/.envvars ]; then
+        . ~/.envvars
+      fi
+
 - name: Add user RSA key
   copy:
     src: "{{ git_rsa_key }}"
