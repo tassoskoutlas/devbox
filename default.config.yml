@@ -69,7 +69,7 @@ projects_path: "{{ guest_path }}"
 #  path - string (required) - the location of the project
 #  docroot - string (required) - the location of docroot within the project
 #  type - string (required) - the technology used in the project (generic, hugo, drupal, symfony, wp, laravel)
-#  db_name - string (optional) - the database name to be used
+#  database - string (optional) - the database name to be used
 #  repo - string (optional) - a git path to checkout existing projects (uses path)
 
 #projects:
