@@ -1,20 +1,16 @@
 # Devbox - Virtual LAMP server
 
-## Prerequisites
+Devbox is a virtual development environment. Using the LAMP stack provided you can start development without worrying about setting up your computer as a development environment.
 
-Devbox is a virtual devevelopment box for PHP and JavaScript development
-(including frameworks like Hugo, Symfony, WordPress and Drupal). Using the LAMP
-stack provided you can start development without worrying about setting up your
-computer as a development environment.
+## Prerequisites
 
 Devbox works with the following software:
 
   - Vagrant >= 2.2.10
   - Ansible >= 2.9.6
   - VirtualBox >= 6.1
-  - Ubuntu 20.04.1 LTS (Focal Fossa)
 
-## Install
+## Installation and setup
 
 Get devbox in your local machine:
 
@@ -22,7 +18,7 @@ Get devbox in your local machine:
 git clone git@github.com:ioa-maellak/devbox.git && cd devbox
 ```
 
-Create the configuration file to configure the development environment:
+Copy the configuration file and edit:
 
 ```
 cp default.config.yml config.yml
@@ -163,6 +159,14 @@ The `additional_tasks` variable allows additional tasks to be performed after
 the server has been provisioned. This can be used for some adhoc configuration
 like downloading emacs configuration specific to the user or adding custom
 aliases to `.bashrc`.
+
+## Software versions
+
+ - Ubuntu 20.04.1 LTS (Focal Fossa)
+ - Apache 2.4
+ - PHP 7.4
+ - MySQL 8
+ - Node.js 14.14
 
 ## Contributions
 
