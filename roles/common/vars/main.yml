@@ -14,4 +14,4 @@ packages_utils:
   - shellcheck
   - unzip
   - htop
-  
+  - zip
