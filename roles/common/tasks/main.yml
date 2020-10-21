@@ -1,8 +1,15 @@
 ---
 
+- name: Update apt
+  become: yes
+  apt:
+    upgrade: "yes"
+    update_cache: yes
+    cache_valid_time: 86400 #one day
+
 - name: Install utilities
   become: yes
-  apt: 
+  apt:
     name: "{{ packages_utils }}"
     state: present
 
