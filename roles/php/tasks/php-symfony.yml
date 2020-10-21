@@ -1,0 +1,14 @@
+---
+
+- name: Install Symfony CLI
+  shell: " wget https://get.symfony.com/cli/installer -O - | bash "
+  args:
+    creates: "/usr/local/bin/symfony"
+    warn: false
+
+- name: Move Symfony CLI to /usr/local/bin
+  become: yes
+  shell: "mv .symfony/bin/symfony /usr/local/bin/symfony"
+  args:
+    chdir: "/home/{{ vm_user }}"
+    creates: "/usr/local/bin/symfony"

@@ -2,7 +2,7 @@
 
 - name: Install PHP packages
   become: yes
-  apt: 
+  apt:
     name: "{{ packages_php }}"
     state: present
   notify: restart php
@@ -43,3 +43,7 @@
 - name: Enable Drupal tools
   include_tasks: php-drupal.yml
   when: php_drupal == true
+
+- name: Enable Symfony tools
+  include_tasks: php-symfony.yml
+  when: php_symfony == true
