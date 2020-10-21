@@ -27,7 +27,7 @@ git_rsa_key_dest: "~/.ssh/id_rsa"
 # Repositories
 repositories:
   - { name: github, host: github.com }
-  - { name: bitbucket, host: bitbucket.com}
+  - { name: bitbucket, host: bitbucket.com }
 
 repositories_count: "{{ repositories | length }}"
 rebuild_known_hosts: false
