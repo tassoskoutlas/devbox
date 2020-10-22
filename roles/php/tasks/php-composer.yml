@@ -15,7 +15,7 @@
 
 - name: Make composer executable
   become: yes
-  file: 
+  file:
     path: "/usr/local/bin/composer"
     mode: a+x
     state: file
@@ -30,8 +30,14 @@
       fi
     backup: yes
 
+- name: Set Composer's global process-timeout to 2000
+  composer:
+    command: "config"
+    arguments: "--global process-timeout 2000"
+    working_dir: "/home/{{ vm_user }}"
+
 - name: Update composer to latest version
   become: yes
   composer:
-    command: self-update
-    global-command: yes
+    command: "self-update"
+    global_command: yes
