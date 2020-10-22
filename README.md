@@ -74,6 +74,8 @@ The virtual machine can be automatically configured via the variables in
 **Machine** and **Folder mapping**. There are a number of options that allow
 devbox to operate in various conditions.
 
+When using NFS for folder mapping you need to ensure that `nfsd` is installed locally.
+
 Folder mapping is achieved through NFS and bindfs to ensure that permisions are
 set as expected. By default devbox is using 775 for directories and 644 for
 files but behaviour can be overriden via `vm_folder_perm`.
