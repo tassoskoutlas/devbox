@@ -21,6 +21,15 @@
 # - debug:
 #     var: dot_git
 
+# Project setup behaviour
+#
+# IF a git repository has been declared in projects configuration
+# THEN repository gets checkout
+#
+# IF a git repository has not been declared in projects configuration
+# AND a .git directory does not exist in the directory
+# THEN the task is run based on tech value chosen
+
 - name: Initialise projects with repositories
   include_tasks: projects-project-git.yml
   with_items: "{{ dot_git.results }}"
