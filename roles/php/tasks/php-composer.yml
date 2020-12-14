@@ -31,7 +31,7 @@
     backup: yes
 
 - name: Update composer to latest version
-  become: yes
   composer:
     command: self-update
+    arguments: --no-interaction
     global-command: yes
