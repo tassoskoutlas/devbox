@@ -79,6 +79,7 @@ projects_path: "{{ guest_path }}"
     #path: ""
     #docroot: ""
     #type: ""
+    #version: ""
     #database: ""
     #repo: ""
 
